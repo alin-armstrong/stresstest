@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Forced Seller Test | WealthOS</title>
+<meta name="description" content="Will this leverage play make you a forced seller? Test it before you pull the trigger.">
+<meta property="og:title" content="The Forced Seller Test | WealthOS">
+<meta property="og:description" content="Borrow against an asset. The only question that matters: will this make you a forced seller under stress?">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Forced Seller Test">
+<meta name="twitter:description" content="The first rule of WealthOS is never be a forced seller. Test your leverage play against it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0a0f0a;
+    background-image: radial-gradient(circle at 20% 30%, rgba(180, 240, 50, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(180, 240, 50, 0.04) 0%, transparent 50%);
+    color: #e8e8e8;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .container { max-width: 720px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 2rem; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #b4f032;
+    background: rgba(180, 240, 50, 0.08);
+    border: 1px solid rgba(180, 240, 50, 0.25);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -1px;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  h1 .accent { color: #b4f032; }
+
+  .subtitle {
+    font-size: 17px;
+    color: #999;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  .thesis {
+    background: linear-gradient(135deg, rgba(180, 240, 50, 0.08) 0%, rgba(180, 240, 50, 0.02) 100%);
+    border: 1px solid rgba(180, 240, 50, 0.25);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.75rem auto 0;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .thesis .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .thesis .quote {
+    font-size: 18px;
+    color: #b4f032;
+    font-weight: 600;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .thesis .source { font-size: 12px; color: #777; margin-top: 8px; }
+
+  .section {
+    background: #131a13;
+    border: 1px solid rgba(180, 240, 50, 0.12);
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #b4f032;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 600px) {
+    .inputs-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #aaa;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .input-group label .badge {
+    display: inline-block;
+    font-size: 9px;
+    background: rgba(180, 240, 50, 0.15);
+    color: #b4f032;
+    padding: 2px 6px;
+    border-radius: 100px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    vertical-align: middle;
+  }
+
+  .input-group label .badge.optional {
+    background: rgba(255, 255, 255, 0.06);
+    color: #888;
+  }
+
+  .input-group .hint {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-top: 6px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+
+  .input-group .hint strong { color: #b4f032; }
+
+  .input-group .helper {
+    display: block;
+    font-size: 12px;
+    color: #b4f032;
+    margin-top: 8px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.4;
+    padding: 8px 10px;
+    background: rgba(180, 240, 50, 0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(180, 240, 50, 0.15);
+  }
+
+  .input-wrap { position: relative; }
+
+  .input-wrap .prefix, .input-wrap .suffix {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #b4f032;
+    font-weight: 600;
+    pointer-events: none;
+    font-size: 15px;
+  }
+
+  .input-wrap .prefix { left: 14px; }
+  .input-wrap .suffix { right: 14px; }
+
+  input[type="text"], select {
+    width: 100%;
+    padding: 13px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(180, 240, 50, 0.2);
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  input[type="text"].with-prefix { padding-left: 30px; }
+  input[type="text"].with-suffix { padding-right: 36px; }
+
+  input[type="text"]:focus, select:focus {
+    border-color: rgba(180, 240, 50, 0.6);
+    background: rgba(180, 240, 50, 0.04);
+    box-shadow: 0 0 20px rgba(180, 240, 50, 0.1);
+  }
+
+  input[type="text"]::placeholder { color: #555; font-weight: 500; }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b4f032' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+  }
+
+  .doctrine-card {
+    background: linear-gradient(135deg, rgba(180, 240, 50, 0.08) 0%, rgba(180, 240, 50, 0.02) 100%);
+    border: 1px solid rgba(180, 240, 50, 0.3);
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 30px rgba(180, 240, 50, 0.06);
+  }
+
+  .doctrine-card .section-title { color: #b4f032; }
+  .doctrine-card .section-subtitle { color: #aaa; }
+
+  .auto-calc-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .auto-calc-toggle input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #b4f032;
+    cursor: pointer;
+  }
+
+  .auto-calc-toggle.active { color: #b4f032; }
+
+  .run-btn-wrap { text-align: center; margin: 2rem 0 1.5rem; }
+
+  .run-btn {
+    padding: 18px 40px;
+    background: rgba(180, 240, 50, 0.12);
+    border: 1px solid rgba(180, 240, 50, 0.5);
+    border-radius: 12px;
+    color: #b4f032;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .run-btn:hover {
+    background: rgba(180, 240, 50, 0.2);
+    border-color: #b4f032;
+    box-shadow: 0 0 30px rgba(180, 240, 50, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .results { display: none; }
+  .results.active { display: block; }
+
+  .doctrine-banner {
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .doctrine-banner.pass { background: rgba(180, 240, 50, 0.08); border: 1px solid rgba(180, 240, 50, 0.3); }
+  .doctrine-banner.fail { background: rgba(220, 80, 80, 0.08); border: 1px solid rgba(220, 80, 80, 0.4); }
+  .doctrine-banner.missing { background: rgba(220, 160, 60, 0.08); border: 1px solid rgba(220, 160, 60, 0.3); }
+
+  .doctrine-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .doctrine-banner.pass .doctrine-icon { background: rgba(180, 240, 50, 0.2); color: #b4f032; }
+  .doctrine-banner.fail .doctrine-icon { background: rgba(220, 80, 80, 0.2); color: #e06868; }
+  .doctrine-banner.missing .doctrine-icon { background: rgba(220, 160, 60, 0.2); color: #dca03c; }
+
+  .doctrine-content { flex: 1; }
+
+  .doctrine-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .doctrine-banner.pass .doctrine-label { color: #b4f032; }
+  .doctrine-banner.fail .doctrine-label { color: #e06868; }
+  .doctrine-banner.missing .doctrine-label { color: #dca03c; }
+
+  .doctrine-message { font-size: 14px; color: #e8e8e8; line-height: 1.5; }
+
+  .verdict-card {
+    background: #131a13;
+    border: 1px solid rgba(180, 240, 50, 0.2);
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .verdict-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #b4f032, transparent);
+  }
+
+  .verdict-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .verdict-title {
+    font-size: 44px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  .verdict-title.safe { color: #b4f032; }
+  .verdict-title.exposed { color: #dca03c; }
+  .verdict-title.forced { color: #e06868; }
+
+  .verdict-summary {
+    font-size: 16px;
+    color: #e8e8e8;
+    line-height: 1.55;
+    max-width: 540px;
+    margin: 0 auto 1rem;
+    font-weight: 500;
+  }
+
+  .verdict-recommendation {
+    font-size: 14px;
+    color: #b4f032;
+    background: rgba(180, 240, 50, 0.08);
+    border: 1px solid rgba(180, 240, 50, 0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .featured-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .featured-metrics { grid-template-columns: 1fr 1fr; }
+  }
+
+  .featured-metric {
+    background: linear-gradient(135deg, rgba(180, 240, 50, 0.1) 0%, rgba(180, 240, 50, 0.03) 100%);
+    border: 1px solid rgba(180, 240, 50, 0.3);
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .featured-metric-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .featured-metric-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #b4f032;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .featured-metric-detail {
+    font-size: 13px;
+    color: #ccc;
+    line-height: 1.5;
+  }
+
+  .featured-metric-detail strong { color: #b4f032; }
+
+  .scenarios {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .scenario-card {
+    background: #131a13;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 1.5rem;
+    border-left: 4px solid #888;
+  }
+
+  .scenario-card.safe { border-left-color: #b4f032; }
+  .scenario-card.exposed { border-left-color: #dca03c; }
+  .scenario-card.forced { border-left-color: #e06868; }
+
+  .scenario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .scenario-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .scenario-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .scenario-badge.safe { background: rgba(180, 240, 50, 0.15); color: #b4f032; border: 1px solid rgba(180, 240, 50, 0.4); }
+  .scenario-badge.exposed { background: rgba(220, 160, 60, 0.15); color: #dca03c; border: 1px solid rgba(220, 160, 60, 0.4); }
+  .scenario-badge.forced { background: rgba(220, 80, 80, 0.15); color: #e06868; border: 1px solid rgba(220, 80, 80, 0.4); }
+
+  .scenario-question {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .scenario-detail {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
+  }
+
+  .scenario-detail strong { color: #ffffff; }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .action-buttons { grid-template-columns: 1fr 1fr; }
+  }
+
+  .action-btn {
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(180, 240, 50, 0.3);
+    background: transparent;
+    color: #e8e8e8;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .action-btn:hover {
+    background: rgba(180, 240, 50, 0.08);
+    border-color: rgba(180, 240, 50, 0.6);
+    color: #b4f032;
+  }
+
+  .action-btn.primary {
+    background: rgba(180, 240, 50, 0.12);
+    border-color: rgba(180, 240, 50, 0.5);
+    color: #b4f032;
+  }
+
+  .action-btn.primary:hover {
+    background: rgba(180, 240, 50, 0.2);
+    border-color: #b4f032;
+    box-shadow: 0 0 20px rgba(180, 240, 50, 0.15);
+  }
+
+  .disclaimer {
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 2rem auto 0;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 12px;
+    color: #666;
+    letter-spacing: 0.5px;
+  }
+
+  .footer .brand { color: #b4f032; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="eyebrow">A WealthOS deal evaluator</div>
+    <h1>The forced <span class="accent">seller test</span></h1>
+    <p class="subtitle">Before you take on this leverage play, answer the only question that matters: will this make you a forced seller under stress?</p>
+
+    <div class="thesis">
+      <div class="label">The WealthOS thesis</div>
+      <div class="quote">"The first rule of investing is never be a forced seller."</div>
+      <div class="source">Everything in this tool serves that single rule.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Step 1 — The collateral</div>
+    <div class="section-subtitle">What you're borrowing against. This is the asset you keep — it stays in your name and keeps compounding.</div>
+
+    <div class="inputs-grid">
+      <div class="input-group">
+        <label>Collateral asset type</label>
+        <select id="collateral-type">
+          <option value="btc">Bitcoin / Crypto</option>
+          <option value="equities" selected>Public equities / stocks</option>
+          <option value="re">Real estate</option>
+          <option value="business">Business equity</option>
+        </select>
+        <span class="hint">Different assets have different volatility and call thresholds.</span>
+      </div>
+
+      <div class="input-group">
+        <label>Value of collateral</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="collateral-value" class="with-prefix" placeholder="1,000,000" value="1,000,000">
+        </div>
+        <span class="hint">Current market value of the asset.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doctrine-card">
+    <div class="section-title">Step 2 — Your LTV ceilings</div>
+    <div class="section-subtitle">Doctrine is a SIZING rule — it governs what you choose to borrow at execution. Once you've executed within your doctrine, market movement may push your LTV around. That's not a doctrine violation — that's gravity. Only margin call thresholds determine forced selling.</div>
+
+    <div class="inputs-grid">
+      <div class="input-group">
+        <label>Your doctrine LTV ceiling <span class="badge">REQUIRED</span></label>
+        <div class="input-wrap">
+          <input type="text" id="doctrine-ltv" class="with-suffix" placeholder="25" value="25">
+          <span class="suffix">%</span>
+        </div>
+        <span class="hint">The max LTV you've committed to when SIZING a play. Your rule for how much to borrow — not a leash that follows the asset around.</span>
+        <span class="helper" id="doctrine-helper">At 25% LTV, you survive ~64% drawdown before margin call.</span>
+      </div>
+
+      <div class="input-group">
+        <label>Lender's margin call LTV <span class="badge optional">OPTIONAL</span></label>
+        <div class="input-wrap">
+          <input type="text" id="lender-ltv" class="with-suffix" placeholder="Auto" value="">
+          <span class="suffix">%</span>
+        </div>
+        <span class="hint">Where your lender forces action. This is the only line that creates a forced sale. Leave blank to use the typical default for this asset type.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Step 3 — The loan</div>
+    <div class="section-subtitle">Loan amount auto-calculates from your doctrine ceiling. Override if you want to model a smaller play.</div>
+
+    <div class="inputs-grid">
+      <div class="input-group">
+        <label class="auto-calc-toggle active" id="auto-calc-label">
+          <input type="checkbox" id="auto-calc" checked>
+          <span>Auto-calculate from doctrine</span>
+        </label>
+        <label>Loan amount</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="loan-amount" class="with-prefix" placeholder="250,000" value="250,000">
+        </div>
+        <span class="hint" id="loan-hint">Auto-calculated from your doctrine ceiling.</span>
+      </div>
+
+      <div class="input-group">
+        <label>Interest rate</label>
+        <div class="input-wrap">
+          <input type="text" id="loan-rate" class="with-suffix" placeholder="7" value="7">
+          <span class="suffix">%</span>
+        </div>
+        <span class="hint">Annual rate on the loan. Determines how much liquidity you need to service it.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Step 4 — Your liquidity stack</div>
+    <div class="section-subtitle">All capital you can access within 7 days WITHOUT selling the collateral or the asset you're acquiring. This is what keeps you from being a forced seller when stress hits.</div>
+
+    <div class="inputs-grid">
+      <div class="input-group">
+        <label>Total accessible liquidity</label>
+        <div class="input-wrap">
+          <span class="prefix">$</span>
+          <input type="text" id="liquidity-total" class="with-prefix" placeholder="115,000" value="115,000">
+        </div>
+        <span class="hint"><strong>What counts:</strong> Cash, T-bills, money market, undrawn lines of credit you've already arranged, HELOC capacity you can tap immediately, asset-backed borrowing capacity outside this play. <strong>What doesn't count:</strong> Retirement accounts you'd pay penalties on, illiquid assets, theoretical loans you haven't pre-arranged, anything that requires more than 7 days. Only count liquidity that's <strong>genuinely accessible within a week</strong> — banks revoke lines, markets freeze, theoretical access disappears when you need it.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="run-btn-wrap">
+    <button class="run-btn" onclick="runStressTest()">Run the forced seller test</button>
+  </div>
+
+  <div class="results" id="results">
+
+    <div class="doctrine-banner" id="doctrine-banner">
+      <div class="doctrine-icon" id="doctrine-icon">—</div>
+      <div class="doctrine-content">
+        <div class="doctrine-label" id="doctrine-label">Doctrine check</div>
+        <div class="doctrine-message" id="doctrine-message">—</div>
+      </div>
+    </div>
+
+    <div class="verdict-card">
+      <div class="verdict-label">Will you be a forced seller?</div>
+      <div class="verdict-title" id="verdict-title">—</div>
+      <div class="verdict-summary" id="verdict-summary">—</div>
+      <div class="verdict-recommendation" id="verdict-recommendation">—</div>
+    </div>
+
+    <div class="featured-metrics">
+      <div class="featured-metric">
+        <div class="featured-metric-label">Survivable drawdown</div>
+        <div class="featured-metric-value" id="survivable-value">—</div>
+        <div class="featured-metric-detail" id="survivable-detail">—</div>
+      </div>
+      <div class="featured-metric">
+        <div class="featured-metric-label">Interest payment runway</div>
+        <div class="featured-metric-value" id="runway-value">—</div>
+        <div class="featured-metric-detail" id="runway-detail">—</div>
+      </div>
+    </div>
+
+    <div class="scenarios">
+
+      <div class="scenario-card" id="scenario-1">
+        <div class="scenario-header">
+          <div class="scenario-name">Path 1 — Margin call</div>
+          <div class="scenario-badge" id="badge-1">—</div>
+        </div>
+        <div class="scenario-question" id="question-1">—</div>
+        <div class="scenario-detail" id="detail-1">—</div>
+      </div>
+
+      <div class="scenario-card" id="scenario-2">
+        <div class="scenario-header">
+          <div class="scenario-name">Path 2 — Interest service failure</div>
+          <div class="scenario-badge" id="badge-2">—</div>
+        </div>
+        <div class="scenario-question">Can you pay the interest from liquidity if everything else stops producing? How many years can you hold without selling the collateral?</div>
+        <div class="scenario-detail" id="detail-2">—</div>
+      </div>
+
+      <div class="scenario-card" id="scenario-3">
+        <div class="scenario-header">
+          <div class="scenario-name">Path 3 — Compound stress</div>
+          <div class="scenario-badge" id="badge-3">—</div>
+        </div>
+        <div class="scenario-question" id="question-3">A realistic drawdown AND your liquidity has to fund the interest for 3+ years because everything else stopped producing. Do both your collateral and your liquidity hold?</div>
+        <div class="scenario-detail" id="detail-3">—</div>
+      </div>
+
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn" onclick="resetTest()">Adjust the play</button>
+      <button class="action-btn primary" onclick="shareResult()">Share my result</button>
+    </div>
+
+  </div>
+
+  <p class="disclaimer">For educational purposes only. Not financial, investment, tax, or legal advice. This tool models the WealthOS "forced seller" question — it does not evaluate deal quality, returns, or investment merit. A play can survive this test (you won't be a forced seller) and still be a bad investment for other reasons. Use this as one input in your decision — not the only one.</p>
+
+  <div class="footer">
+    Built on the <span class="brand">WealthOS</span> framework
+  </div>
+
+</div>
+
+<script>
+(function() {
+
+  function formatNum(n) { return n.toLocaleString(); }
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  function fmtShort(n) {
+    const abs = Math.abs(n);
+    if (abs >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+    if (abs >= 1000) return '$' + Math.round(n / 1000) + 'k';
+    return '$' + Math.round(n);
+  }
+  function parseNum(str) {
+    return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0;
+  }
+
+  // V7: One realistic drawdown per asset. No more "compound = worse drawdown."
+  const collateralProfiles = {
+    btc: {
+      name: 'Bitcoin',
+      stressDrawdown: 0.40,
+      defaultLenderLTV: 65,
+      drawdownDesc: 'Bitcoin drops 40%'
+    },
+    equities: {
+      name: 'Equities',
+      stressDrawdown: 0.25,
+      defaultLenderLTV: 70,
+      drawdownDesc: 'Stocks drop 25%'
+    },
+    re: {
+      name: 'Real estate',
+      stressDrawdown: 0.15,
+      defaultLenderLTV: 80,
+      drawdownDesc: 'Real estate drops 15%'
+    },
+    business: {
+      name: 'Business equity',
+      stressDrawdown: 0.30,
+      defaultLenderLTV: 60,
+      drawdownDesc: 'Business value drops 30%'
+    }
+  };
+
+  function getCurrentLenderLTV() {
+    const lenderInput = parseNum(document.getElementById('lender-ltv').value);
+    if (lenderInput > 0) return lenderInput / 100;
+    const type = document.getElementById('collateral-type').value;
+    return collateralProfiles[type].defaultLenderLTV / 100;
+  }
+
+  function updateDoctrineHelper() {
+    const doctrineLTV = parseNum(document.getElementById('doctrine-ltv').value);
+    const lenderLTV = getCurrentLenderLTV() * 100;
+    const helper = document.getElementById('doctrine-helper');
+
+    if (doctrineLTV <= 0) {
+      helper.textContent = 'Enter your doctrine ceiling to see what drawdown you can absorb.';
+      return;
+    }
+
+    const survivable = Math.max(0, (1 - (doctrineLTV / lenderLTV)) * 100);
+    helper.textContent = 'At ' + doctrineLTV + '% LTV, you survive ~' + Math.round(survivable) + '% drawdown before margin call (lender threshold: ' + Math.round(lenderLTV) + '%).';
+  }
+
+  function updateLoanAmountFromDoctrine() {
+    const autoCalc = document.getElementById('auto-calc').checked;
+    if (!autoCalc) return;
+
+    const collateralValue = parseNum(document.getElementById('collateral-value').value);
+    const doctrineLTV = parseNum(document.getElementById('doctrine-ltv').value) / 100;
+
+    if (collateralValue > 0 && doctrineLTV > 0) {
+      const maxLoan = Math.round(collateralValue * doctrineLTV);
+      document.getElementById('loan-amount').value = formatNum(maxLoan);
+    }
+  }
+
+  function updateLoanHint() {
+    const autoCalc = document.getElementById('auto-calc').checked;
+    const hint = document.getElementById('loan-hint');
+    const label = document.getElementById('auto-calc-label');
+
+    if (autoCalc) {
+      hint.textContent = 'Auto-calculated from your doctrine ceiling. Edit the doctrine LTV to change.';
+      label.classList.add('active');
+    } else {
+      hint.textContent = 'Manual mode. Enter any loan amount — the tool will flag if it violates your doctrine.';
+      label.classList.remove('active');
+    }
+  }
+
+  ['collateral-value', 'loan-amount', 'liquidity-total'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', function(e) {
+      const raw = parseNum(e.target.value);
+      e.target.value = raw > 0 ? formatNum(raw) : '';
+    });
+    el.addEventListener('blur', function(e) {
+      const raw = parseNum(e.target.value);
+      e.target.value = raw > 0 ? formatNum(raw) : '';
+    });
+  });
+
+  document.getElementById('doctrine-ltv').addEventListener('input', () => {
+    updateDoctrineHelper();
+    updateLoanAmountFromDoctrine();
+  });
+
+  document.getElementById('lender-ltv').addEventListener('input', updateDoctrineHelper);
+
+  document.getElementById('collateral-type').addEventListener('change', () => {
+    updateDoctrineHelper();
+    updateLoanAmountFromDoctrine();
+  });
+
+  document.getElementById('collateral-value').addEventListener('input', updateLoanAmountFromDoctrine);
+  document.getElementById('collateral-value').addEventListener('blur', updateLoanAmountFromDoctrine);
+
+  document.getElementById('auto-calc').addEventListener('change', () => {
+    updateLoanHint();
+    updateLoanAmountFromDoctrine();
+  });
+
+  document.getElementById('loan-amount').addEventListener('input', () => {
+    const autoCalc = document.getElementById('auto-calc');
+    if (autoCalc.checked) {
+      autoCalc.checked = false;
+      updateLoanHint();
+    }
+  });
+
+  updateDoctrineHelper();
+  updateLoanHint();
+
+  window.runStressTest = function() {
+    const collateralType = document.getElementById('collateral-type').value;
+    const profile = collateralProfiles[collateralType];
+
+    const collateralValue = parseNum(document.getElementById('collateral-value').value);
+    const loanAmount = parseNum(document.getElementById('loan-amount').value);
+    const loanRate = parseNum(document.getElementById('loan-rate').value) / 100;
+    const liquidity = parseNum(document.getElementById('liquidity-total').value);
+
+    const doctrineLTVInput = parseNum(document.getElementById('doctrine-ltv').value);
+    const lenderLTVInput = parseNum(document.getElementById('lender-ltv').value);
+
+    if (collateralValue <= 0 || loanAmount <= 0 || loanRate <= 0) {
+      alert('Please fill in collateral value, loan amount, and interest rate.');
+      return;
+    }
+
+    const doctrineLTV = doctrineLTVInput > 0 ? doctrineLTVInput / 100 : null;
+    const lenderLTV = lenderLTVInput > 0 ? lenderLTVInput / 100 : profile.defaultLenderLTV / 100;
+    const lenderLTVPct = Math.round(lenderLTV * 100);
+
+    const startingLTV = loanAmount / collateralValue;
+    const annualInterest = loanAmount * loanRate;
+    const monthlyInterest = annualInterest / 12;
+
+    // ===== SURVIVABLE DRAWDOWN =====
+    const drawdownToLenderCall = Math.max(0, (1 - (startingLTV / lenderLTV)) * 100);
+    const survivableValueEl = document.getElementById('survivable-value');
+    const survivableDetailEl = document.getElementById('survivable-detail');
+
+    if (startingLTV >= lenderLTV) {
+      survivableValueEl.textContent = '0%';
+      survivableValueEl.style.color = '#e06868';
+      survivableDetailEl.innerHTML = '<strong>You\'re already at or past the call threshold.</strong> Any drawdown forces action.';
+    } else {
+      survivableValueEl.textContent = Math.round(drawdownToLenderCall) + '%';
+      if (drawdownToLenderCall >= 50) survivableValueEl.style.color = '#b4f032';
+      else if (drawdownToLenderCall >= 30) survivableValueEl.style.color = '#dca03c';
+      else survivableValueEl.style.color = '#e06868';
+
+      survivableDetailEl.innerHTML = '<strong>' + profile.name + ' can drop ' + Math.round(drawdownToLenderCall) + '%</strong> before lender call at ' + lenderLTVPct + '% LTV.';
+    }
+
+    // ===== INTEREST PAYMENT RUNWAY =====
+    const runwayYears = monthlyInterest > 0 ? (liquidity / annualInterest) : 999;
+    const runwayMonths = monthlyInterest > 0 ? (liquidity / monthlyInterest) : 999;
+    const runwayValueEl = document.getElementById('runway-value');
+    const runwayDetailEl = document.getElementById('runway-detail');
+
+    if (runwayYears >= 10) {
+      runwayValueEl.textContent = '10+ yr';
+      runwayValueEl.style.color = '#b4f032';
+    } else if (runwayYears >= 5) {
+      runwayValueEl.textContent = runwayYears.toFixed(1) + ' yr';
+      runwayValueEl.style.color = '#b4f032';
+    } else if (runwayYears >= 2) {
+      runwayValueEl.textContent = runwayYears.toFixed(1) + ' yr';
+      runwayValueEl.style.color = '#dca03c';
+    } else if (runwayMonths >= 6) {
+      runwayValueEl.textContent = runwayMonths.toFixed(0) + ' mo';
+      runwayValueEl.style.color = '#dca03c';
+    } else {
+      runwayValueEl.textContent = runwayMonths.toFixed(1) + ' mo';
+      runwayValueEl.style.color = '#e06868';
+    }
+
+    runwayDetailEl.innerHTML = '<strong>' + fmt(liquidity) + '</strong> of liquidity covers ' + (runwayYears >= 10 ? '10+ years' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(annualInterest) + '/year.';
+
+    // ===== DOCTRINE CHECK (sizing only) =====
+    const banner = document.getElementById('doctrine-banner');
+    const icon = document.getElementById('doctrine-icon');
+    const label = document.getElementById('doctrine-label');
+    const message = document.getElementById('doctrine-message');
+
+    let doctrineStatus;
+    if (doctrineLTV === null) {
+      doctrineStatus = 'missing';
+      banner.className = 'doctrine-banner missing';
+      icon.textContent = '?';
+      label.textContent = 'No doctrine set';
+      message.innerHTML = 'You didn\'t enter a doctrine LTV ceiling. <strong>This is the first rule worth writing.</strong> Pick a number you commit to never EXCEEDING when sizing a play.';
+    } else if (startingLTV > doctrineLTV) {
+      doctrineStatus = 'fail';
+      banner.className = 'doctrine-banner fail';
+      icon.textContent = '✕';
+      label.textContent = 'Doctrine violated';
+      const maxAllowedLoan = collateralValue * doctrineLTV;
+      message.innerHTML = '<strong>This play violates your doctrine at execution.</strong> Starting LTV is ' + Math.round(startingLTV * 100) + '%, above your ceiling of ' + Math.round(doctrineLTV * 100) + '%. Reduce the loan to <strong>' + fmt(maxAllowedLoan) + '</strong> or add more collateral.';
+    } else {
+      doctrineStatus = 'pass';
+      banner.className = 'doctrine-banner pass';
+      icon.textContent = '✓';
+      label.textContent = 'Doctrine respected';
+      message.innerHTML = 'Starting LTV of ' + Math.round(startingLTV * 100) + '% is within your ' + Math.round(doctrineLTV * 100) + '% ceiling. You\'re sizing the play according to your rules.';
+    }
+
+    // ===== PATH 1: MARGIN CALL =====
+    const stressedCollateralValue = collateralValue * (1 - profile.stressDrawdown);
+    const stressedLTV = loanAmount / stressedCollateralValue;
+    document.getElementById('question-1').textContent = profile.drawdownDesc + '. Does your LTV cross the lender call threshold?';
+
+    let s1Grade, s1Detail;
+    if (stressedLTV >= lenderLTV) {
+      s1Grade = 'forced';
+      s1Detail = '<strong>Forced sale via margin call.</strong> A ' + Math.round(profile.stressDrawdown * 100) + '% drawdown pushes LTV to ' + Math.round(stressedLTV * 100) + '%, past the ' + lenderLTVPct + '% call threshold. The lender takes action on the collateral. Reduce loan size.';
+    } else if (stressedLTV >= lenderLTV * 0.9) {
+      s1Grade = 'exposed';
+      s1Detail = '<strong>Close to the call line.</strong> Stressed LTV reaches ' + Math.round(stressedLTV * 100) + '%, close to the ' + lenderLTVPct + '% threshold. A second leg down would trigger forced action. Consider trimming the loan 10-15%.';
+    } else {
+      s1Grade = 'safe';
+      s1Detail = '<strong>Margin call avoided.</strong> Even after a ' + Math.round(profile.stressDrawdown * 100) + '% drawdown, LTV only reaches ' + Math.round(stressedLTV * 100) + '% — well below the ' + lenderLTVPct + '% call threshold. Collateral keeps compounding through the volatility.';
+    }
+
+    // ===== PATH 2: INTEREST SERVICE FAILURE =====
+    let s2Grade, s2Detail;
+    if (runwayYears < 2) {
+      s2Grade = 'forced';
+      s2Detail = '<strong>Forced sale via interest default.</strong> Your liquidity (' + fmt(liquidity) + ') only covers ' + (runwayMonths < 12 ? runwayMonths.toFixed(0) + ' months' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(annualInterest) + '/year. If income stops and the asset stops producing, you run out and the lender takes the collateral. Increase liquidity to at least ' + fmt(annualInterest * 3) + ' (3 years of interest) before executing.';
+    } else if (runwayYears < 5) {
+      s2Grade = 'exposed';
+      s2Detail = '<strong>You hold for a while, but not forever.</strong> Liquidity covers ' + runwayYears.toFixed(1) + ' years of interest payments. That\'s enough to weather most cycles — but not a prolonged stress. WealthOS-friendly target: 5+ years of pure interest runway from liquidity alone.';
+    } else if (runwayYears < 10) {
+      s2Grade = 'safe';
+      s2Detail = '<strong>You can hold through almost any cycle.</strong> Liquidity covers ' + runwayYears.toFixed(1) + ' years of interest. Even if everything else stopped producing, you have multi-year runway to ride out a stress event without selling the collateral. This is what the liquidity stack is built for.';
+    } else {
+      s2Grade = 'safe';
+      s2Detail = '<strong>You can hold indefinitely.</strong> Liquidity covers 10+ years of interest at ' + fmt(annualInterest) + '/year. You\'re not a forced seller under any realistic timeframe.';
+    }
+
+    // ===== PATH 3: COMPOUND STRESS =====
+    // V7: SAME drawdown as Path 1 + extended interest burden requirement.
+    // Forced ONLY if EITHER condition independently triggers forced selling.
+    // Tests the INTERACTION, not a deeper drawdown.
+    document.getElementById('question-3').textContent = profile.drawdownDesc + ' AND you have to fund interest from liquidity for 3+ years because everything else stopped producing. Do both your collateral and your liquidity hold?';
+
+    // Compound stress requires holding for at least 3 years on liquidity alone
+    const compoundYearsRequired = 3;
+    const liquidityHoldsCompound = runwayYears >= compoundYearsRequired;
+    const ltvHoldsCompound = stressedLTV < lenderLTV;
+    const ltvCloseToCall = stressedLTV >= lenderLTV * 0.9;
+    const liquidityCloseToShort = runwayYears < 5;
+
+    let s3Grade, s3Detail;
+    if (!ltvHoldsCompound) {
+      s3Grade = 'forced';
+      s3Detail = '<strong>Forced sale via margin call under compound stress.</strong> Even with adequate liquidity, the ' + Math.round(profile.stressDrawdown * 100) + '% drawdown alone pushes LTV to ' + Math.round(stressedLTV * 100) + '%, past the ' + lenderLTVPct + '% call threshold. Reduce loan size — liquidity can\'t save you from a margin call.';
+    } else if (!liquidityHoldsCompound) {
+      s3Grade = 'forced';
+      s3Detail = '<strong>Forced sale via interest default under compound stress.</strong> LTV holds at ' + Math.round(stressedLTV * 100) + '% (no margin call), but your ' + runwayYears.toFixed(1) + '-year liquidity runway can\'t fund a 3+ year compound stress event. Increase liquidity to at least ' + fmt(annualInterest * 3) + '.';
+    } else if (ltvCloseToCall || liquidityCloseToShort) {
+      s3Grade = 'exposed';
+      const issues = [];
+      if (ltvCloseToCall) issues.push('LTV at ' + Math.round(stressedLTV * 100) + '% is close to the ' + lenderLTVPct + '% call line');
+      if (liquidityCloseToShort) issues.push('liquidity covers ' + runwayYears.toFixed(1) + ' years (below 5-year target)');
+      s3Detail = '<strong>You survive compound stress, but with thin margins.</strong> ' + issues.join(' and ') + '. Both defenses hold, but you\'re operating closer to your limits than ideal. Tighten one dimension to shift to safe.';
+    } else {
+      s3Grade = 'safe';
+      s3Detail = '<strong>You hold through compound stress.</strong> Even with a ' + Math.round(profile.stressDrawdown * 100) + '% drawdown, LTV only reaches ' + Math.round(stressedLTV * 100) + '% — well within the call line. AND your ' + runwayYears.toFixed(1) + '-year liquidity runway absorbs a multi-year interest burden. Both defenses intact. Antifragile.';
+    }
+
+    // ===== OVERALL VERDICT =====
+    const grades = [s1Grade, s2Grade, s3Grade];
+    const forcedCount = grades.filter(g => g === 'forced').length;
+    const exposedCount = grades.filter(g => g === 'exposed').length;
+
+    let verdict, summary, recommendation;
+
+    if (doctrineStatus === 'fail') {
+      verdict = 'Forced';
+      summary = 'Before any stress is applied, this play already violates the doctrine ceiling you set at execution. Doctrine governs what you choose to borrow — and you\'re trying to borrow above your own rule.';
+      recommendation = 'Recommendation: Reduce the loan to stay within your doctrine, or revisit whether your ceiling is still the right one.';
+    } else if (forcedCount >= 1) {
+      verdict = 'Forced';
+      summary = 'Under at least one realistic stress scenario, this play makes you a forced seller — either via margin call on the collateral or via inability to service the interest from liquidity.';
+      recommendation = 'Recommendation: Identify the forced scenario above. The fix is one of two things: reduce the loan (less LTV risk) or increase liquidity (more interest runway).';
+    } else if (exposedCount >= 2) {
+      verdict = 'Exposed';
+      summary = 'You wouldn\'t be a forced seller, but the play has multiple weak edges. Either your LTV gets uncomfortably close to the call line under stress or your liquidity runway is thinner than ideal.';
+      recommendation = 'Recommendation: Tighten one of the exposed dimensions. Usually the cheapest fix is increasing liquidity, not reducing the loan.';
+    } else if (exposedCount === 1) {
+      verdict = 'Exposed';
+      summary = 'The play survives stress but has one weak edge. You wouldn\'t be a forced seller — but you\'re operating closer to your limits than ideal.';
+      recommendation = 'Recommendation: Address the exposed scenario above. Small adjustments now prevent uncomfortable decisions later.';
+    } else {
+      verdict = 'Safe';
+      summary = 'This play does NOT make you a forced seller under any realistic stress tested. Collateral survives drawdown without triggering margin call. Liquidity covers interest for years. Even compound stress doesn\'t break the structure. Your collateral stays in your name and keeps compounding through the volatility.';
+      recommendation = 'Recommendation: From a "forced seller" perspective, this structure is sound. Separate question: is the deal a good investment? That depends on what you\'re buying with the loan, which this tool doesn\'t evaluate.';
+    }
+
+    document.getElementById('verdict-title').textContent = verdict;
+    document.getElementById('verdict-title').className = 'verdict-title ' + verdict.toLowerCase();
+    document.getElementById('verdict-summary').textContent = summary;
+    document.getElementById('verdict-recommendation').textContent = recommendation;
+
+    renderScenario(1, s1Grade, s1Detail);
+    renderScenario(2, s2Grade, s2Detail);
+    renderScenario(3, s3Grade, s3Detail);
+
+    document.getElementById('results').classList.add('active');
+    setTimeout(() => {
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  };
+
+  function renderScenario(num, grade, detail) {
+    const card = document.getElementById('scenario-' + num);
+    const badge = document.getElementById('badge-' + num);
+    const detailEl = document.getElementById('detail-' + num);
+    card.className = 'scenario-card ' + grade;
+    badge.className = 'scenario-badge ' + grade;
+    badge.textContent = grade;
+    detailEl.innerHTML = detail;
+  }
+
+  window.resetTest = function() {
+    document.getElementById('results').classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.shareResult = function() {
+    const verdict = document.getElementById('verdict-title').textContent;
+    const survivable = document.getElementById('survivable-value').textContent;
+    const runway = document.getElementById('runway-value').textContent;
+    const shareText = 'I tested a leverage play against the WealthOS Forced Seller Test. Verdict: ' + verdict + '. Survivable drawdown: ' + survivable + '. Interest runway: ' + runway + '. Test yours: ' + window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: 'My WealthOS Forced Seller Test Result', text: shareText, url: window.location.href }).catch(() => copyToClipboard(shareText));
+    } else { copyToClipboard(shareText); }
+  };
+
+  function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => { alert('Result copied to clipboard! Paste it anywhere to share.'); }).catch(() => { fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+  }
+
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand('copy'); alert('Result copied to clipboard!'); } catch (e) { alert('Share text:\n\n' + text); }
+    document.body.removeChild(textarea);
+  }
+
+})();
+</script>
+
+</body>
+</html>
