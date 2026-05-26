@@ -32,6 +32,8 @@
   .section-subtitle { font-size: 13px; color: #888; margin-bottom: 1.5rem; line-height: 1.5; }
   .inputs-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
   @media (min-width: 600px) { .inputs-grid { grid-template-columns: 1fr 1fr; } }
+  .inputs-grid.triple { grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .inputs-grid.triple { grid-template-columns: 1fr 1fr 1fr; } }
   .input-group label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 8px; font-weight: 500; }
   .input-group label .badge { display: inline-block; font-size: 9px; background: rgba(180, 240, 50, 0.15); color: #b4f032; padding: 2px 6px; border-radius: 100px; margin-left: 8px; letter-spacing: 1px; vertical-align: middle; }
   .input-group label .badge.optional { background: rgba(255, 255, 255, 0.06); color: #888; }
@@ -82,6 +84,8 @@
   .verdict-title.forced { color: #e06868; }
   .verdict-summary { font-size: 16px; color: #e8e8e8; line-height: 1.55; max-width: 540px; margin: 0 auto 1rem; font-weight: 500; }
   .verdict-recommendation { font-size: 14px; color: #b4f032; background: rgba(180, 240, 50, 0.08); border: 1px solid rgba(180, 240, 50, 0.25); border-radius: 10px; padding: 12px 16px; max-width: 540px; margin: 0 auto; line-height: 1.5; font-weight: 500; }
+  .assumption-note { font-size: 12px; color: #888; text-align: center; margin: -8px 0 1.5rem; font-style: italic; padding: 0 1rem; line-height: 1.5; }
+  .assumption-note strong { color: #b4f032; font-style: normal; }
   .featured-metrics { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 1.5rem; }
   @media (min-width: 600px) { .featured-metrics { grid-template-columns: 1fr 1fr; } }
   .featured-metric { background: linear-gradient(135deg, rgba(180, 240, 50, 0.1) 0%, rgba(180, 240, 50, 0.03) 100%); border: 1px solid rgba(180, 240, 50, 0.3); border-radius: 14px; padding: 1.5rem; text-align: center; }
@@ -89,14 +93,39 @@
   .featured-metric-value { font-size: 32px; font-weight: 800; color: #b4f032; letter-spacing: -1px; margin-bottom: 8px; line-height: 1; }
   .featured-metric-detail { font-size: 13px; color: #ccc; line-height: 1.5; }
   .featured-metric-detail strong { color: #b4f032; }
+  .sensitivity-section { background: #131a13; border: 1px solid rgba(180, 240, 50, 0.12); border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .sensitivity-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #b4f032; margin-bottom: 6px; font-weight: 600; }
+  .sensitivity-subtitle { font-size: 13px; color: #888; margin-bottom: 1rem; line-height: 1.5; }
+  .sensitivity-table { width: 100%; border-collapse: collapse; }
+  .sensitivity-table th { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #888; font-weight: 600; padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  .sensitivity-table th.right { text-align: right; }
+  .sensitivity-table td { padding: 12px 8px; font-size: 13px; color: #ccc; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+  .sensitivity-table td.right { text-align: right; }
+  .sensitivity-table tr.baseline { background: rgba(180, 240, 50, 0.05); }
+  .sensitivity-table tr.baseline td { color: #fff; font-weight: 600; }
+  .sensitivity-table tr.baseline td:first-child::before { content: '★ '; color: #b4f032; }
+  .sens-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 100px; }
+  .sens-badge.safe { background: rgba(180, 240, 50, 0.15); color: #b4f032; }
+  .sens-badge.exposed { background: rgba(220, 160, 60, 0.15); color: #dca03c; }
+  .sens-badge.forced { background: rgba(220, 80, 80, 0.15); color: #e06868; }
+  .custom-stress-section { background: #131a13; border: 1px solid rgba(180, 240, 50, 0.12); border-radius: 14px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .custom-stress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+  .custom-stress-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #b4f032; font-weight: 600; }
+  .custom-stress-value { font-size: 18px; font-weight: 700; color: #b4f032; }
+  .custom-stress-subtitle { font-size: 13px; color: #888; margin-bottom: 1.25rem; line-height: 1.5; }
+  .slider-wrap { padding: 0 4px; }
+  input[type="range"].drawdown-slider { width: 100%; height: 6px; background: rgba(180, 240, 50, 0.15); border-radius: 100px; outline: none; -webkit-appearance: none; appearance: none; cursor: pointer; }
+  input[type="range"].drawdown-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: #b4f032; border-radius: 50%; cursor: pointer; border: 3px solid #0a0f0a; box-shadow: 0 0 0 1px rgba(180, 240, 50, 0.4), 0 0 20px rgba(180, 240, 50, 0.3); }
+  input[type="range"].drawdown-slider::-moz-range-thumb { width: 24px; height: 24px; background: #b4f032; border-radius: 50%; cursor: pointer; border: 3px solid #0a0f0a; box-shadow: 0 0 0 1px rgba(180, 240, 50, 0.4), 0 0 20px rgba(180, 240, 50, 0.3); }
+  .slider-tick-labels { display: flex; justify-content: space-between; margin-top: 10px; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
   .scenarios { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 1.5rem; }
-  .scenario-card { background: #131a13; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 1.5rem; border-left: 4px solid #888; }
+  .scenario-card { background: #131a13; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 1.5rem; border-left: 4px solid #888; transition: border-left-color 0.3s ease; }
   .scenario-card.safe { border-left-color: #b4f032; }
   .scenario-card.exposed { border-left-color: #dca03c; }
   .scenario-card.forced { border-left-color: #e06868; }
   .scenario-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 12px; flex-wrap: wrap; }
   .scenario-name { font-size: 14px; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; }
-  .scenario-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 100px; }
+  .scenario-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 100px; transition: all 0.3s ease; }
   .scenario-badge.safe { background: rgba(180, 240, 50, 0.15); color: #b4f032; border: 1px solid rgba(180, 240, 50, 0.4); }
   .scenario-badge.exposed { background: rgba(220, 160, 60, 0.15); color: #dca03c; border: 1px solid rgba(220, 160, 60, 0.4); }
   .scenario-badge.forced { background: rgba(220, 80, 80, 0.15); color: #e06868; border: 1px solid rgba(220, 80, 80, 0.4); }
@@ -112,10 +141,6 @@
   .disclaimer { text-align: center; font-size: 11px; color: #555; line-height: 1.6; max-width: 540px; margin: 2rem auto 0; }
   .footer { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: #666; letter-spacing: 0.5px; }
   .footer .brand { color: #b4f032; font-weight: 600; }
-
-  /* V8: triple-column grid for loan section so origination fee fits cleanly */
-  .inputs-grid.triple { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-  @media (min-width: 700px) { .inputs-grid.triple { grid-template-columns: 1fr 1fr 1fr; } }
 </style>
 </head>
 <body>
@@ -147,7 +172,7 @@
           <option value="re">Real estate</option>
           <option value="business">Business equity</option>
         </select>
-        <span class="hint">Different assets have different volatility and call thresholds.</span>
+        <span class="hint" id="asset-hint">Public equities / stocks: typical bear-market drawdown ~25%, lender call ~70%.</span>
       </div>
 
       <div class="input-group">
@@ -220,7 +245,7 @@
           <input type="text" id="origination-fee" class="with-suffix" placeholder="0" value="0">
           <span class="suffix">%</span>
         </div>
-        <span class="hint">One-time upfront fee charged by the lender. Comes out of your liquidity at execution. Leave at 0 if your loan has no origination fee (most SBLOCs, HELOCs, PALs).</span>
+        <span class="hint">One-time upfront fee charged by the lender. Comes out of liquidity at execution.</span>
         <span class="helper" id="origination-helper">No origination fee.</span>
       </div>
     </div>
@@ -228,7 +253,7 @@
 
   <div class="section">
     <div class="section-title">Step 4 — Your liquidity stack</div>
-    <div class="section-subtitle">All capital you can access within 7 days WITHOUT selling the collateral or the asset you're acquiring. This is what keeps you from being a forced seller when stress hits.</div>
+    <div class="section-subtitle">All capital you can access within 7 days WITHOUT selling the collateral or the asset you're acquiring.</div>
 
     <div class="inputs-grid">
       <div class="input-group">
@@ -237,7 +262,7 @@
           <span class="prefix">$</span>
           <input type="text" id="liquidity-total" class="with-prefix" placeholder="115,000" value="115,000">
         </div>
-        <span class="hint"><strong>What counts:</strong> Cash, T-bills, money market, undrawn lines of credit you've already arranged, HELOC capacity you can tap immediately, asset-backed borrowing capacity outside this play. <strong>What doesn't count:</strong> Retirement accounts you'd pay penalties on, illiquid assets, theoretical loans you haven't pre-arranged, anything that requires more than 7 days. Only count liquidity that's <strong>genuinely accessible within a week</strong> — banks revoke lines, markets freeze, theoretical access disappears when you need it.</span>
+        <span class="hint"><strong>What counts:</strong> Cash, T-bills, money market, undrawn lines of credit, HELOC capacity, asset-backed borrowing capacity outside this play. <strong>What doesn't:</strong> Retirement accounts you'd pay penalties on, illiquid assets, theoretical loans, anything that requires more than 7 days. Only count what's <strong>genuinely accessible within a week.</strong></span>
       </div>
     </div>
   </div>
@@ -263,6 +288,8 @@
       <div class="verdict-recommendation" id="verdict-recommendation">—</div>
     </div>
 
+    <div class="assumption-note" id="assumption-note">—</div>
+
     <div class="featured-metrics">
       <div class="featured-metric">
         <div class="featured-metric-label">Survivable drawdown</div>
@@ -273,6 +300,40 @@
         <div class="featured-metric-label">Interest payment runway</div>
         <div class="featured-metric-value" id="runway-value">—</div>
         <div class="featured-metric-detail" id="runway-detail">—</div>
+      </div>
+    </div>
+
+    <div class="sensitivity-section">
+      <div class="sensitivity-title">Sensitivity analysis</div>
+      <div class="sensitivity-subtitle">How the verdict changes across different drawdown scenarios. The starred row marks the baseline used for the verdict above.</div>
+      <table class="sensitivity-table">
+        <thead>
+          <tr>
+            <th>Drawdown</th>
+            <th class="right">Stressed LTV</th>
+            <th class="right">Status</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody id="sensitivity-tbody">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="custom-stress-section">
+      <div class="custom-stress-header">
+        <div class="custom-stress-title">Custom stress test</div>
+        <div class="custom-stress-value" id="custom-stress-value">—40%</div>
+      </div>
+      <div class="custom-stress-subtitle">Drag to test any drawdown scenario. The three Path cards below update in real time. Verdict at the top stays based on the baseline.</div>
+      <div class="slider-wrap">
+        <input type="range" id="drawdown-slider" class="drawdown-slider" min="0" max="90" step="1" value="40">
+        <div class="slider-tick-labels">
+          <span>0%</span>
+          <span>30%</span>
+          <span>60%</span>
+          <span>90%</span>
+        </div>
       </div>
     </div>
 
@@ -330,17 +391,25 @@
   function parseNum(str) { return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0; }
 
   const collateralProfiles = {
-    btc: { name: 'Bitcoin', stressDrawdown: 0.40, defaultLenderLTV: 65, drawdownDesc: 'Bitcoin drops 40%' },
-    equities: { name: 'Equities', stressDrawdown: 0.25, defaultLenderLTV: 70, drawdownDesc: 'Stocks drop 25%' },
-    re: { name: 'Real estate', stressDrawdown: 0.15, defaultLenderLTV: 80, drawdownDesc: 'Real estate drops 15%' },
-    business: { name: 'Business equity', stressDrawdown: 0.30, defaultLenderLTV: 60, drawdownDesc: 'Business value drops 30%' }
+    btc: { name: 'Bitcoin', stressDrawdown: 0.40, defaultLenderLTV: 65, drawdownDesc: 'Bitcoin drops', label: 'Bitcoin / Crypto', rationale: 'typical bear-market drawdown ~40%, lender call ~65%' },
+    equities: { name: 'Equities', stressDrawdown: 0.25, defaultLenderLTV: 70, drawdownDesc: 'Stocks drop', label: 'Public equities / stocks', rationale: 'typical bear-market drawdown ~25%, lender call ~70%' },
+    re: { name: 'Real estate', stressDrawdown: 0.15, defaultLenderLTV: 80, drawdownDesc: 'Real estate drops', label: 'Real estate', rationale: 'typical correction ~15%, lender call ~80%' },
+    business: { name: 'Business equity', stressDrawdown: 0.30, defaultLenderLTV: 60, drawdownDesc: 'Business value drops', label: 'Business equity', rationale: 'typical revenue stress ~30%, lender call ~60%' }
   };
+
+  let testState = null;
 
   function getCurrentLenderLTV() {
     const lenderInput = parseNum(document.getElementById('lender-ltv').value);
     if (lenderInput > 0) return lenderInput / 100;
     const type = document.getElementById('collateral-type').value;
     return collateralProfiles[type].defaultLenderLTV / 100;
+  }
+
+  function updateAssetHint() {
+    const type = document.getElementById('collateral-type').value;
+    const profile = collateralProfiles[type];
+    document.getElementById('asset-hint').textContent = profile.label + ': ' + profile.rationale + '.';
   }
 
   function updateDoctrineHelper() {
@@ -356,10 +425,7 @@
     const loanAmount = parseNum(document.getElementById('loan-amount').value);
     const feePct = parseNum(document.getElementById('origination-fee').value);
     const helper = document.getElementById('origination-helper');
-    if (feePct <= 0) {
-      helper.textContent = 'No origination fee. Typical for SBLOCs, HELOCs, and portfolio loans.';
-      return;
-    }
+    if (feePct <= 0) { helper.textContent = 'No origination fee. Typical for SBLOCs, HELOCs, and portfolio loans.'; return; }
     const feeAmount = loanAmount * (feePct / 100);
     helper.textContent = feePct + '% of ' + fmt(loanAmount) + ' = ' + fmt(feeAmount) + ' deducted from liquidity at execution.';
   }
@@ -404,7 +470,7 @@
 
   document.getElementById('doctrine-ltv').addEventListener('input', () => { updateDoctrineHelper(); updateLoanAmountFromDoctrine(); });
   document.getElementById('lender-ltv').addEventListener('input', updateDoctrineHelper);
-  document.getElementById('collateral-type').addEventListener('change', () => { updateDoctrineHelper(); updateLoanAmountFromDoctrine(); });
+  document.getElementById('collateral-type').addEventListener('change', () => { updateAssetHint(); updateDoctrineHelper(); updateLoanAmountFromDoctrine(); });
   document.getElementById('collateral-value').addEventListener('input', updateLoanAmountFromDoctrine);
   document.getElementById('collateral-value').addEventListener('blur', updateLoanAmountFromDoctrine);
   document.getElementById('auto-calc').addEventListener('change', () => { updateLoanHint(); updateLoanAmountFromDoctrine(); });
@@ -415,20 +481,154 @@
   document.getElementById('origination-fee').addEventListener('input', updateOriginationHelper);
   document.getElementById('origination-fee').addEventListener('blur', updateOriginationHelper);
 
+  document.getElementById('drawdown-slider').addEventListener('input', function(e) {
+    const value = parseInt(e.target.value);
+    document.getElementById('custom-stress-value').textContent = '−' + value + '%';
+    if (testState) updateScenariosForDrawdown(value / 100);
+  });
+
+  updateAssetHint();
   updateDoctrineHelper();
   updateLoanHint();
   updateOriginationHelper();
 
+  function gradePath1(drawdown, state) {
+    const stressedCollateralValue = state.collateralValue * (1 - drawdown);
+    const stressedLTV = state.loanAmount / stressedCollateralValue;
+    let grade, detail;
+    if (stressedLTV >= state.lenderLTV) {
+      grade = 'forced';
+      detail = '<strong>Forced sale via margin call.</strong> A ' + Math.round(drawdown * 100) + '% drawdown pushes LTV to ' + Math.round(stressedLTV * 100) + '%, past the ' + state.lenderLTVPct + '% call threshold. The lender takes action on the collateral.';
+    } else if (stressedLTV >= state.lenderLTV * 0.9) {
+      grade = 'exposed';
+      detail = '<strong>Close to the call line.</strong> Stressed LTV reaches ' + Math.round(stressedLTV * 100) + '%, close to the ' + state.lenderLTVPct + '% threshold. A second leg down would trigger forced action.';
+    } else {
+      grade = 'safe';
+      detail = '<strong>Margin call avoided.</strong> Even after a ' + Math.round(drawdown * 100) + '% drawdown, LTV only reaches ' + Math.round(stressedLTV * 100) + '% — well below the ' + state.lenderLTVPct + '% call threshold.';
+    }
+    return { grade, detail, stressedLTV };
+  }
+
+  function gradePath2(state) {
+    const runwayYears = state.annualInterest > 0 ? (state.liquidityNet / state.annualInterest) : 999;
+    const runwayMonths = state.annualInterest > 0 ? (state.liquidityNet / (state.annualInterest / 12)) : 999;
+    const feeNote = state.hasOriginationFee ? ' (after ' + fmt(state.originationFee) + ' origination fee)' : '';
+    let grade, detail;
+    if (runwayYears < 2) {
+      grade = 'forced';
+      detail = '<strong>Forced sale via interest default.</strong> Your liquidity' + feeNote + ' (' + fmt(state.liquidityNet) + ') only covers ' + (runwayMonths < 12 ? runwayMonths.toFixed(0) + ' months' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(state.annualInterest) + '/year. Increase liquidity to at least ' + fmt(state.annualInterest * 3) + ' (3 years).';
+    } else if (runwayYears < 5) {
+      grade = 'exposed';
+      detail = '<strong>You hold for a while, but not forever.</strong> Liquidity' + feeNote + ' covers ' + runwayYears.toFixed(1) + ' years of interest. Enough for most cycles — not a prolonged stress. Target: 5+ years.';
+    } else if (runwayYears < 10) {
+      grade = 'safe';
+      detail = '<strong>You can hold through almost any cycle.</strong> Liquidity' + feeNote + ' covers ' + runwayYears.toFixed(1) + ' years of interest. Multi-year runway to ride out a stress event without selling.';
+    } else {
+      grade = 'safe';
+      detail = '<strong>You can hold indefinitely.</strong> Liquidity' + feeNote + ' covers 10+ years of interest at ' + fmt(state.annualInterest) + '/year.';
+    }
+    return { grade, detail, runwayYears };
+  }
+
+  function gradePath3(drawdown, state) {
+    const stressedCollateralValue = state.collateralValue * (1 - drawdown);
+    const stressedLTV = state.loanAmount / stressedCollateralValue;
+    const runwayYears = state.annualInterest > 0 ? (state.liquidityNet / state.annualInterest) : 999;
+    const feeNote = state.hasOriginationFee ? ' (after origination)' : '';
+
+    const liquidityHolds = runwayYears >= 3;
+    const ltvHolds = stressedLTV < state.lenderLTV;
+    const ltvCloseToCall = stressedLTV >= state.lenderLTV * 0.9;
+    const liquidityCloseToShort = runwayYears < 5;
+
+    let grade, detail;
+    if (!ltvHolds) {
+      grade = 'forced';
+      detail = '<strong>Forced sale via margin call under compound stress.</strong> A ' + Math.round(drawdown * 100) + '% drawdown pushes LTV to ' + Math.round(stressedLTV * 100) + '%, past the ' + state.lenderLTVPct + '% call threshold. Reduce loan size.';
+    } else if (!liquidityHolds) {
+      grade = 'forced';
+      detail = '<strong>Forced sale via interest default under compound stress.</strong> LTV holds at ' + Math.round(stressedLTV * 100) + '% (no call), but your ' + runwayYears.toFixed(1) + '-year liquidity runway' + feeNote + ' can\'t fund a 3+ year compound stress event.';
+    } else if (ltvCloseToCall || liquidityCloseToShort) {
+      grade = 'exposed';
+      const issues = [];
+      if (ltvCloseToCall) issues.push('LTV at ' + Math.round(stressedLTV * 100) + '% is close to the ' + state.lenderLTVPct + '% call line');
+      if (liquidityCloseToShort) issues.push('liquidity covers ' + runwayYears.toFixed(1) + ' years (below 5-year target)');
+      detail = '<strong>You survive compound stress, but with thin margins.</strong> ' + issues.join(' and ') + '.';
+    } else {
+      grade = 'safe';
+      detail = '<strong>You hold through compound stress.</strong> Even with a ' + Math.round(drawdown * 100) + '% drawdown, LTV only reaches ' + Math.round(stressedLTV * 100) + '% — well within the call line. Your ' + runwayYears.toFixed(1) + '-year liquidity runway' + feeNote + ' absorbs the interest burden. Antifragile.';
+    }
+    return { grade, detail, stressedLTV };
+  }
+
+  function quickGradeLTV(drawdown, state) {
+    const stressedCollateralValue = state.collateralValue * (1 - drawdown);
+    const stressedLTV = state.loanAmount / stressedCollateralValue;
+    let grade, reason;
+    if (stressedLTV >= state.lenderLTV) {
+      grade = 'forced';
+      reason = 'LTV crosses ' + state.lenderLTVPct + '% lender call line';
+    } else if (stressedLTV >= state.lenderLTV * 0.9) {
+      grade = 'exposed';
+      reason = 'LTV approaches ' + state.lenderLTVPct + '% call line';
+    } else {
+      grade = 'safe';
+      reason = 'LTV well below ' + state.lenderLTVPct + '% call line';
+    }
+    return { grade, reason, stressedLTV };
+  }
+
+  function renderSensitivityTable(state) {
+    const drawdowns = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80];
+    const baselineDrawdown = state.profile.stressDrawdown;
+    const tbody = document.getElementById('sensitivity-tbody');
+    tbody.innerHTML = '';
+
+    drawdowns.forEach(dd => {
+      const result = quickGradeLTV(dd, state);
+      const isBaseline = Math.abs(dd - baselineDrawdown) < 0.01;
+      const row = document.createElement('tr');
+      if (isBaseline) row.className = 'baseline';
+      row.innerHTML = '<td>−' + Math.round(dd * 100) + '%</td>' +
+        '<td class="right">' + Math.round(result.stressedLTV * 100) + '%</td>' +
+        '<td class="right"><span class="sens-badge ' + result.grade + '">' + result.grade + '</span></td>' +
+        '<td>' + result.reason + '</td>';
+      tbody.appendChild(row);
+    });
+  }
+
+  function updateScenariosForDrawdown(drawdown) {
+    if (!testState) return;
+    const p1 = gradePath1(drawdown, testState);
+    const p2 = gradePath2(testState);
+    const p3 = gradePath3(drawdown, testState);
+
+    document.getElementById('question-1').textContent = testState.profile.drawdownDesc + ' ' + Math.round(drawdown * 100) + '%. Does your LTV cross the lender call threshold?';
+    document.getElementById('question-3').textContent = testState.profile.drawdownDesc + ' ' + Math.round(drawdown * 100) + '% AND you have to fund interest from liquidity for 3+ years. Do both your collateral and your liquidity hold?';
+
+    renderScenario(1, p1.grade, p1.detail);
+    renderScenario(2, p2.grade, p2.detail);
+    renderScenario(3, p3.grade, p3.detail);
+  }
+
+  function renderScenario(num, grade, detail) {
+    const card = document.getElementById('scenario-' + num);
+    const badge = document.getElementById('badge-' + num);
+    const detailEl = document.getElementById('detail-' + num);
+    card.className = 'scenario-card ' + grade;
+    badge.className = 'scenario-badge ' + grade;
+    badge.textContent = grade;
+    detailEl.innerHTML = detail;
+  }
+
   window.runStressTest = function() {
     const collateralType = document.getElementById('collateral-type').value;
     const profile = collateralProfiles[collateralType];
-
     const collateralValue = parseNum(document.getElementById('collateral-value').value);
     const loanAmount = parseNum(document.getElementById('loan-amount').value);
     const loanRate = parseNum(document.getElementById('loan-rate').value) / 100;
     const originationFeePct = parseNum(document.getElementById('origination-fee').value) / 100;
     const liquidityGross = parseNum(document.getElementById('liquidity-total').value);
-
     const doctrineLTVInput = parseNum(document.getElementById('doctrine-ltv').value);
     const lenderLTVInput = parseNum(document.getElementById('lender-ltv').value);
 
@@ -440,25 +640,25 @@
     const doctrineLTV = doctrineLTVInput > 0 ? doctrineLTVInput / 100 : null;
     const lenderLTV = lenderLTVInput > 0 ? lenderLTVInput / 100 : profile.defaultLenderLTV / 100;
     const lenderLTVPct = Math.round(lenderLTV * 100);
-
-    // V8: origination fee deducted from liquidity at execution
     const originationFee = loanAmount * originationFeePct;
     const liquidityNet = Math.max(0, liquidityGross - originationFee);
     const hasOriginationFee = originationFeePct > 0;
-
     const startingLTV = loanAmount / collateralValue;
     const annualInterest = loanAmount * loanRate;
-    const monthlyInterest = annualInterest / 12;
 
-    // Survivable drawdown
+    testState = {
+      profile, collateralValue, loanAmount, loanRate, originationFee, originationFeePct,
+      liquidityGross, liquidityNet, hasOriginationFee, doctrineLTV, lenderLTV, lenderLTVPct,
+      startingLTV, annualInterest
+    };
+
     const drawdownToLenderCall = Math.max(0, (1 - (startingLTV / lenderLTV)) * 100);
     const survivableValueEl = document.getElementById('survivable-value');
     const survivableDetailEl = document.getElementById('survivable-detail');
-
     if (startingLTV >= lenderLTV) {
       survivableValueEl.textContent = '0%';
       survivableValueEl.style.color = '#e06868';
-      survivableDetailEl.innerHTML = '<strong>You\'re already at or past the call threshold.</strong> Any drawdown forces action.';
+      survivableDetailEl.innerHTML = '<strong>You\'re already at or past the call threshold.</strong>';
     } else {
       survivableValueEl.textContent = Math.round(drawdownToLenderCall) + '%';
       if (drawdownToLenderCall >= 50) survivableValueEl.style.color = '#b4f032';
@@ -467,12 +667,11 @@
       survivableDetailEl.innerHTML = '<strong>' + profile.name + ' can drop ' + Math.round(drawdownToLenderCall) + '%</strong> before lender call at ' + lenderLTVPct + '% LTV.';
     }
 
-    // Interest payment runway (using NET liquidity after origination)
-    const runwayYears = annualInterest > 0 ? (liquidityNet / annualInterest) : 999;
-    const runwayMonths = monthlyInterest > 0 ? (liquidityNet / monthlyInterest) : 999;
+    const p2 = gradePath2(testState);
+    const runwayYears = p2.runwayYears;
+    const runwayMonths = (liquidityNet / (annualInterest / 12));
     const runwayValueEl = document.getElementById('runway-value');
     const runwayDetailEl = document.getElementById('runway-detail');
-
     if (runwayYears >= 10) { runwayValueEl.textContent = '10+ yr'; runwayValueEl.style.color = '#b4f032'; }
     else if (runwayYears >= 5) { runwayValueEl.textContent = runwayYears.toFixed(1) + ' yr'; runwayValueEl.style.color = '#b4f032'; }
     else if (runwayYears >= 2) { runwayValueEl.textContent = runwayYears.toFixed(1) + ' yr'; runwayValueEl.style.color = '#dca03c'; }
@@ -480,31 +679,29 @@
     else { runwayValueEl.textContent = runwayMonths.toFixed(1) + ' mo'; runwayValueEl.style.color = '#e06868'; }
 
     if (hasOriginationFee) {
-      runwayDetailEl.innerHTML = '<strong>' + fmt(liquidityGross) + '</strong> liquidity − <strong>' + fmt(originationFee) + '</strong> origination = ' + fmt(liquidityNet) + '. Covers ' + (runwayYears >= 10 ? '10+ years' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(annualInterest) + '/year.';
+      runwayDetailEl.innerHTML = '<strong>' + fmt(liquidityGross) + '</strong> − <strong>' + fmt(originationFee) + '</strong> origination = ' + fmt(liquidityNet) + '. Covers ' + (runwayYears >= 10 ? '10+ years' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(annualInterest) + '/yr.';
     } else {
       runwayDetailEl.innerHTML = '<strong>' + fmt(liquidityNet) + '</strong> of liquidity covers ' + (runwayYears >= 10 ? '10+ years' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(annualInterest) + '/year.';
     }
 
-    // Doctrine check (sizing only)
     const banner = document.getElementById('doctrine-banner');
     const icon = document.getElementById('doctrine-icon');
     const label = document.getElementById('doctrine-label');
     const message = document.getElementById('doctrine-message');
-
     let doctrineStatus;
     if (doctrineLTV === null) {
       doctrineStatus = 'missing';
       banner.className = 'doctrine-banner missing';
       icon.textContent = '?';
       label.textContent = 'No doctrine set';
-      message.innerHTML = 'You didn\'t enter a doctrine LTV ceiling. <strong>This is the first rule worth writing.</strong> Pick a number you commit to never EXCEEDING when sizing a play.';
+      message.innerHTML = 'You didn\'t enter a doctrine LTV ceiling. <strong>This is the first rule worth writing.</strong>';
     } else if (startingLTV > doctrineLTV) {
       doctrineStatus = 'fail';
       banner.className = 'doctrine-banner fail';
       icon.textContent = '✕';
       label.textContent = 'Doctrine violated';
       const maxAllowedLoan = collateralValue * doctrineLTV;
-      message.innerHTML = '<strong>This play violates your doctrine at execution.</strong> Starting LTV is ' + Math.round(startingLTV * 100) + '%, above your ceiling of ' + Math.round(doctrineLTV * 100) + '%. Reduce the loan to <strong>' + fmt(maxAllowedLoan) + '</strong> or add more collateral.';
+      message.innerHTML = '<strong>This play violates your doctrine at execution.</strong> Starting LTV is ' + Math.round(startingLTV * 100) + '%, above your ceiling of ' + Math.round(doctrineLTV * 100) + '%. Reduce loan to <strong>' + fmt(maxAllowedLoan) + '</strong>.';
     } else {
       doctrineStatus = 'pass';
       banner.className = 'doctrine-banner pass';
@@ -513,95 +710,35 @@
       message.innerHTML = 'Starting LTV of ' + Math.round(startingLTV * 100) + '% is within your ' + Math.round(doctrineLTV * 100) + '% ceiling. You\'re sizing the play according to your rules.';
     }
 
-    // Path 1: Margin call
-    const stressedCollateralValue = collateralValue * (1 - profile.stressDrawdown);
-    const stressedLTV = loanAmount / stressedCollateralValue;
-    document.getElementById('question-1').textContent = profile.drawdownDesc + '. Does your LTV cross the lender call threshold?';
+    const baselineDrawdown = profile.stressDrawdown;
+    const p1 = gradePath1(baselineDrawdown, testState);
+    const p3 = gradePath3(baselineDrawdown, testState);
 
-    let s1Grade, s1Detail;
-    if (stressedLTV >= lenderLTV) {
-      s1Grade = 'forced';
-      s1Detail = '<strong>Forced sale via margin call.</strong> A ' + Math.round(profile.stressDrawdown * 100) + '% drawdown pushes LTV to ' + Math.round(stressedLTV * 100) + '%, past the ' + lenderLTVPct + '% call threshold. The lender takes action on the collateral. Reduce loan size.';
-    } else if (stressedLTV >= lenderLTV * 0.9) {
-      s1Grade = 'exposed';
-      s1Detail = '<strong>Close to the call line.</strong> Stressed LTV reaches ' + Math.round(stressedLTV * 100) + '%, close to the ' + lenderLTVPct + '% threshold. A second leg down would trigger forced action. Consider trimming the loan 10-15%.';
-    } else {
-      s1Grade = 'safe';
-      s1Detail = '<strong>Margin call avoided.</strong> Even after a ' + Math.round(profile.stressDrawdown * 100) + '% drawdown, LTV only reaches ' + Math.round(stressedLTV * 100) + '% — well below the ' + lenderLTVPct + '% call threshold. Collateral keeps compounding through the volatility.';
-    }
-
-    // Path 2: Interest service failure
-    let s2Grade, s2Detail;
-    const feeNote = hasOriginationFee ? ' (after ' + fmt(originationFee) + ' origination fee)' : '';
-
-    if (runwayYears < 2) {
-      s2Grade = 'forced';
-      s2Detail = '<strong>Forced sale via interest default.</strong> Your liquidity' + feeNote + ' (' + fmt(liquidityNet) + ') only covers ' + (runwayMonths < 12 ? runwayMonths.toFixed(0) + ' months' : runwayYears.toFixed(1) + ' years') + ' of interest at ' + fmt(annualInterest) + '/year. If income stops and the asset stops producing, you run out and the lender takes the collateral. Increase liquidity to at least ' + fmt(annualInterest * 3) + ' (3 years of interest).';
-    } else if (runwayYears < 5) {
-      s2Grade = 'exposed';
-      s2Detail = '<strong>You hold for a while, but not forever.</strong> Liquidity' + feeNote + ' covers ' + runwayYears.toFixed(1) + ' years of interest payments. Enough to weather most cycles — but not a prolonged stress. WealthOS-friendly target: 5+ years of pure interest runway.';
-    } else if (runwayYears < 10) {
-      s2Grade = 'safe';
-      s2Detail = '<strong>You can hold through almost any cycle.</strong> Liquidity' + feeNote + ' covers ' + runwayYears.toFixed(1) + ' years of interest. Even if everything else stopped producing, you have multi-year runway to ride out a stress event without selling the collateral.';
-    } else {
-      s2Grade = 'safe';
-      s2Detail = '<strong>You can hold indefinitely.</strong> Liquidity' + feeNote + ' covers 10+ years of interest at ' + fmt(annualInterest) + '/year. You\'re not a forced seller under any realistic timeframe.';
-    }
-
-    // Path 3: Compound stress
-    document.getElementById('question-3').textContent = profile.drawdownDesc + ' AND you have to fund interest from liquidity for 3+ years because everything else stopped producing. Do both your collateral and your liquidity hold?';
-
-    const compoundYearsRequired = 3;
-    const liquidityHoldsCompound = runwayYears >= compoundYearsRequired;
-    const ltvHoldsCompound = stressedLTV < lenderLTV;
-    const ltvCloseToCall = stressedLTV >= lenderLTV * 0.9;
-    const liquidityCloseToShort = runwayYears < 5;
-
-    let s3Grade, s3Detail;
-    if (!ltvHoldsCompound) {
-      s3Grade = 'forced';
-      s3Detail = '<strong>Forced sale via margin call under compound stress.</strong> Even with adequate liquidity, the ' + Math.round(profile.stressDrawdown * 100) + '% drawdown alone pushes LTV to ' + Math.round(stressedLTV * 100) + '%, past the ' + lenderLTVPct + '% call threshold. Reduce loan size — liquidity can\'t save you from a margin call.';
-    } else if (!liquidityHoldsCompound) {
-      s3Grade = 'forced';
-      s3Detail = '<strong>Forced sale via interest default under compound stress.</strong> LTV holds at ' + Math.round(stressedLTV * 100) + '% (no margin call), but your ' + runwayYears.toFixed(1) + '-year liquidity runway' + feeNote + ' can\'t fund a 3+ year compound stress event. Increase liquidity to at least ' + fmt(annualInterest * 3) + '.';
-    } else if (ltvCloseToCall || liquidityCloseToShort) {
-      s3Grade = 'exposed';
-      const issues = [];
-      if (ltvCloseToCall) issues.push('LTV at ' + Math.round(stressedLTV * 100) + '% is close to the ' + lenderLTVPct + '% call line');
-      if (liquidityCloseToShort) issues.push('liquidity covers ' + runwayYears.toFixed(1) + ' years (below 5-year target)');
-      s3Detail = '<strong>You survive compound stress, but with thin margins.</strong> ' + issues.join(' and ') + '. Both defenses hold, but you\'re operating closer to your limits than ideal.';
-    } else {
-      s3Grade = 'safe';
-      s3Detail = '<strong>You hold through compound stress.</strong> Even with a ' + Math.round(profile.stressDrawdown * 100) + '% drawdown, LTV only reaches ' + Math.round(stressedLTV * 100) + '% — well within the call line. AND your ' + runwayYears.toFixed(1) + '-year liquidity runway' + feeNote + ' absorbs a multi-year interest burden. Both defenses intact. Antifragile.';
-    }
-
-    // Overall verdict
-    const grades = [s1Grade, s2Grade, s3Grade];
+    const grades = [p1.grade, p2.grade, p3.grade];
     const forcedCount = grades.filter(g => g === 'forced').length;
     const exposedCount = grades.filter(g => g === 'exposed').length;
 
     let verdict, summary, recommendation;
-
     if (doctrineStatus === 'fail') {
       verdict = 'Forced';
-      summary = 'Before any stress is applied, this play already violates the doctrine ceiling you set at execution. Doctrine governs what you choose to borrow — and you\'re trying to borrow above your own rule.';
-      recommendation = 'Recommendation: Reduce the loan to stay within your doctrine, or revisit whether your ceiling is still the right one.';
+      summary = 'Before any stress is applied, this play already violates the doctrine ceiling you set at execution.';
+      recommendation = 'Recommendation: Reduce the loan to stay within your doctrine, or revisit whether your ceiling is still right.';
     } else if (forcedCount >= 1) {
       verdict = 'Forced';
-      summary = 'Under at least one realistic stress scenario, this play makes you a forced seller — either via margin call on the collateral or via inability to service the interest from liquidity.';
-      recommendation = 'Recommendation: Identify the forced scenario above. The fix is one of two things: reduce the loan (less LTV risk) or increase liquidity (more interest runway).';
+      summary = 'Under at least one realistic stress scenario, this play makes you a forced seller — either via margin call or via inability to service the interest from liquidity.';
+      recommendation = 'Recommendation: Identify the forced scenario. Fix is one of two things: reduce the loan or increase liquidity.';
     } else if (exposedCount >= 2) {
       verdict = 'Exposed';
-      summary = 'You wouldn\'t be a forced seller, but the play has multiple weak edges. Either your LTV gets uncomfortably close to the call line under stress or your liquidity runway is thinner than ideal.';
-      recommendation = 'Recommendation: Tighten one of the exposed dimensions. Usually the cheapest fix is increasing liquidity, not reducing the loan.';
+      summary = 'You wouldn\'t be a forced seller, but the play has multiple weak edges.';
+      recommendation = 'Recommendation: Tighten one of the exposed dimensions. Usually the cheapest fix is more liquidity.';
     } else if (exposedCount === 1) {
       verdict = 'Exposed';
       summary = 'The play survives stress but has one weak edge. You wouldn\'t be a forced seller — but you\'re operating closer to your limits than ideal.';
-      recommendation = 'Recommendation: Address the exposed scenario above. Small adjustments now prevent uncomfortable decisions later.';
+      recommendation = 'Recommendation: Address the exposed scenario above.';
     } else {
       verdict = 'Safe';
-      summary = 'This play does NOT make you a forced seller under any realistic stress tested. Collateral survives drawdown without triggering margin call. Liquidity covers interest for years. Even compound stress doesn\'t break the structure. Your collateral stays in your name and keeps compounding through the volatility.';
-      recommendation = 'Recommendation: From a "forced seller" perspective, this structure is sound. Separate question: is the deal a good investment? That depends on what you\'re buying with the loan, which this tool doesn\'t evaluate.';
+      summary = 'This play does NOT make you a forced seller under realistic stress. Collateral survives drawdown without triggering margin call. Liquidity covers interest for years. Even compound stress doesn\'t break the structure.';
+      recommendation = 'Recommendation: From a "forced seller" perspective, this structure is sound. Separate question: is the deal a good investment? That depends on what you\'re buying with the loan.';
     }
 
     document.getElementById('verdict-title').textContent = verdict;
@@ -609,23 +746,18 @@
     document.getElementById('verdict-summary').textContent = summary;
     document.getElementById('verdict-recommendation').textContent = recommendation;
 
-    renderScenario(1, s1Grade, s1Detail);
-    renderScenario(2, s2Grade, s2Detail);
-    renderScenario(3, s3Grade, s3Detail);
+    document.getElementById('assumption-note').innerHTML = 'Verdict uses a <strong>' + Math.round(baselineDrawdown * 100) + '% baseline drawdown</strong> for ' + profile.name + ' — ' + profile.rationale + '. Use the sensitivity table and custom slider below to explore other scenarios.';
+
+    const baselineDrawdownPct = Math.round(baselineDrawdown * 100);
+    document.getElementById('drawdown-slider').value = baselineDrawdownPct;
+    document.getElementById('custom-stress-value').textContent = '−' + baselineDrawdownPct + '%';
+
+    updateScenariosForDrawdown(baselineDrawdown);
+    renderSensitivityTable(testState);
 
     document.getElementById('results').classList.add('active');
     setTimeout(() => { document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
   };
-
-  function renderScenario(num, grade, detail) {
-    const card = document.getElementById('scenario-' + num);
-    const badge = document.getElementById('badge-' + num);
-    const detailEl = document.getElementById('detail-' + num);
-    card.className = 'scenario-card ' + grade;
-    badge.className = 'scenario-badge ' + grade;
-    badge.textContent = grade;
-    detailEl.innerHTML = detail;
-  }
 
   window.resetTest = function() {
     document.getElementById('results').classList.remove('active');
